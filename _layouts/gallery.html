@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+<div class="gallery container">
+    <header>
+        <h1 class="post-title">{{ page.title | escape }}</h1>
+    </header>
+
+    {% assign images_path = site.data.static.gallery | relative_url %}
+
+    <div class="container">
+        {% for image in site.data.gallery.images %}
+        {% assign image_name = image.registration | append: ".jpg" %}
+
+        <div class="column-two-twelveth">
+            <div id="image{{ forloop.index }}" class="modal">
+                <img alt="{{ image.registration }}" class="lazyload" data-src="{{ images_path }}/{{ image_name }}" src="{{ images_path }}/low/{{ image_name }}">
+                <p>{{ image.description }}</p>
+            </div>
+
+            <div class="card">
+                <div class="card-image gallery-image">
+                    <a href="#image{{ forloop.index }}" rel="modal:open">
+                        <img alt="{{ image.registration }}" class="lazyload" data-sizes="auto" data-srcset="{{ images_path }}/140/{{ image_name }} 140w, {{ images_path }}/196/{{ image_name }} 196w" data-src="{{ images_path }}/{{ image_name }}" src="{{ images_path }}/low/{{ image_name }}">
+                    </a>
+                </div>
+                <div class="card-content gallery-content">
+                    <a href="#image{{ forloop.index }}" class="more" rel="modal:open">{{ image.registration }}</a> {{ image.description | truncatewords: 10 }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </article>
